@@ -25,7 +25,7 @@ export default function Characters() {
           <p>
             {character.id}: {character.name}
           </p>
-          <image src={character.image} alt />
+          <img src={character.image} height="150" alt="character" />
         </div>
       ))}
     </>
