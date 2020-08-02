@@ -11,16 +11,15 @@ import Blur from '../styles/Blur'
 import Title from '../styles/Title'
 import Banner from '../styles/Banner'
 import PagWrapper from '../styles/PagWrapper'
-import Grow from '@material-ui/core/Grow'
 
-const LOCATIONS = gql`
-  query GetLocations($page: Int) {
-    locations(page: $page) {
+const EPISODES = gql`
+  query GetEpisodes($page: Int) {
+    episodes(page: $page) {
       results {
         id
         name
-        dimension
-        type
+        air_date
+        episode
       }
     }
   }
@@ -40,12 +39,12 @@ const InfoWrapper = styled(Grid)`
   padding: 5%;
 `
 const BannerChars = styled(Banner)`
-  background-image: url('/banner-locations.jpg');
+  background-image: url('/banner-episodes.jpg');
 `
 
-export default function Locations() {
+export default function Episodes() {
   const [page, setPage] = useState(1)
-  const { loading, error, data } = useQuery(LOCATIONS, {
+  const { loading, error, data } = useQuery(EPISODES, {
     variables: {
       page
     }
@@ -61,7 +60,7 @@ export default function Locations() {
         <BannerChars>
           <Blur />
           <Title variant="h2" gutterBottom>
-            Locations
+            Episodes
           </Title>
         </BannerChars>
         <Progress />
@@ -69,14 +68,14 @@ export default function Locations() {
     )
   if (error) return <BadFetch />
 
-  const locationsData = data.locations.results
+  const episodesData = data.episodes.results
 
   return (
     <>
       <BannerChars>
         <Blur />
         <Title variant="h2" gutterBottom>
-          Locations
+          Episodes
         </Title>
       </BannerChars>
 
@@ -84,35 +83,33 @@ export default function Locations() {
         <PagWrapper>
           <Pagination
             style={{ justifyContent: 'center' }}
-            count={10}
+            count={2}
             page={page}
             onChange={handleChange}
           />
         </PagWrapper>
-        <Grow in={true}>
-          <Grid container spacing={4}>
-            {locationsData.map(location => (
-              <Grid key={location.id} item xs={12} md={6}>
-                <Wrapper container>
-                  <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
-                    <Typography variant="h5">{location.name}</Typography>
-                    <br />
-                    <Typography variant="body1">
-                      Location: {location.dimension}
-                    </Typography>
-                    <Typography variant="body1">
-                      Type: {location.type}
-                    </Typography>
-                  </InfoWrapper>
-                </Wrapper>
-              </Grid>
-            ))}
-          </Grid>
-        </Grow>
+        <Grid container spacing={4}>
+          {episodesData.map(episode => (
+            <Grid key={episode.id} item xs={12} md={6}>
+              <Wrapper container>
+                <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
+                  <Typography variant="h5">{episode.name}</Typography>
+                  <br />
+                  <Typography variant="body1">
+                    Episode: {episode.episode}
+                  </Typography>
+                  <Typography variant="body1">
+                    Air date: {episode.air_date}
+                  </Typography>
+                </InfoWrapper>
+              </Wrapper>
+            </Grid>
+          ))}
+        </Grid>
         <PagWrapper>
           <Pagination
             style={{ justifyContent: 'center' }}
-            count={10}
+            count={2}
             page={page}
             onChange={handleChange}
           />

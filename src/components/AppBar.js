@@ -163,6 +163,7 @@ export default function PersistentDrawerLeft() {
                 component={RouterLink}
                 to={text === 'Home' ? '/' : `/${text.toLowerCase()}`}
                 button
+                onClick={handleDrawerClose}
                 key={text}
               >
                 <ListItemIcon>

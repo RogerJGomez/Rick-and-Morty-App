@@ -11,6 +11,7 @@ import Blur from '../styles/Blur'
 import Title from '../styles/Title'
 import Banner from '../styles/Banner'
 import Grow from '@material-ui/core/Grow'
+import PagWrapper from '../styles/PagWrapper'
 
 const CHARACTERS = gql`
   query GetCharacters($page: Int) {
@@ -46,11 +47,12 @@ const Wrapper = styled(Grid)`
 `
 const InfoWrapper = styled(Grid)`
   text-align: left;
-  padding: 5%;
+  padding: 3%;
 `
 const BannerChars = styled(Banner)`
-  background-image: url('/banner-3.jpg');
+  background-image: url('/banner-characters.jpg');
 `
+
 export default function Characters() {
   const [page, setPage] = useState(1)
   const { loading, error, data } = useQuery(CHARACTERS, {
@@ -89,6 +91,14 @@ export default function Characters() {
       </BannerChars>
 
       <Contain>
+        <PagWrapper>
+          <Pagination
+            style={{ justifyContent: 'center' }}
+            count={30}
+            page={page}
+            onChange={handleChange}
+          />
+        </PagWrapper>
         <Grow in={true}>
           <Grid container spacing={4}>
             {charactersData.map(character => (
@@ -121,7 +131,14 @@ export default function Characters() {
             ))}
           </Grid>
         </Grow>
-        <Pagination count={10} page={page} onChange={handleChange} />
+        <PagWrapper>
+          <Pagination
+            style={{ justifyContent: 'center' }}
+            count={30}
+            page={page}
+            onChange={handleChange}
+          />
+        </PagWrapper>
       </Contain>
     </>
   )

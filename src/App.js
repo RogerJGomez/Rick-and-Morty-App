@@ -8,6 +8,7 @@ import Layout from './components/Layout'
 import Home from './components/pages/Home'
 import Characters from './components/pages/Characters'
 import Locations from './components/pages/Locations'
+import Episodes from './components/pages/Episodes'
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -29,6 +30,10 @@ const GlobalStyles = createGlobalStyle`
       scroll-behavior: smooth;
   }
 
+  .MuiPagination-ul {
+    justify-content:center !important;
+  }
+
 `
 
 function App() {
@@ -42,7 +47,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/characters" component={Characters} />
             <Route path="/locations" component={Locations} />
-            <Route path="/episodes" component={Characters} />
+            <Route path="/episodes" component={Episodes} />
           </Switch>
         </ThemeProvider>
       </ApolloProvider>
