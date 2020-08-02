@@ -4,6 +4,7 @@ import Contain from '../styles/Contain'
 import Typography from '@material-ui/core/Typography'
 import Blur from '../styles/Blur'
 import Title from '../styles/Title'
+import Banner from '../styles/Banner'
 import styled from 'styled-components'
 
 const CharacterImg = styled.img`
@@ -20,30 +21,19 @@ const Wrapper = styled(Grid)`
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   overflow: hidden;
 `
-const Banner = styled.div`
-  background-image: url('/banner-3.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500px;
-  position: relative;
-  @media (max-width: 768px) {
-    height: 300px !important;
-  }
+const BannerHome = styled(Banner)`
+  background-image: url('/banner-home.jpg');
 `
 
 export default function Characters() {
   return (
     <>
-      <Banner>
+      <BannerHome>
         <Blur />
         <Title variant="h2" gutterBottom>
           Rick and Morty
         </Title>
-      </Banner>
+      </BannerHome>
 
       <Contain>
         <Grid container spacing={4}>

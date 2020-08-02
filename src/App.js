@@ -7,6 +7,7 @@ import theme from './theme'
 import Layout from './components/Layout'
 import Home from './components/pages/Home'
 import Characters from './components/pages/Characters'
+import Locations from './components/pages/Locations'
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -40,7 +41,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/characters" component={Characters} />
-            <Route path="/locations" component={Characters} />
+            <Route path="/locations" component={Locations} />
             <Route path="/episodes" component={Characters} />
           </Switch>
         </ThemeProvider>

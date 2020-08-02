@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Pagination from '@material-ui/lab/Pagination'
 import { useQuery, gql } from '@apollo/client'
 import BadFetch from '../utils/BadFetch'
 import Progress from '../utils/Progress'
@@ -8,13 +10,19 @@ import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
 import Blur from '../styles/Blur'
 import Title from '../styles/Title'
+import Banner from '../styles/Banner'
+import Grow from '@material-ui/core/Grow'
 
 const CHARACTERS = gql`
-  query GetCharacters {
-    characters {
+  query GetCharacters($page: Int) {
+    characters(page: $page) {
       results {
         id
         name
+        status
+        species
+        type
+        gender
         image
       }
     }
@@ -38,59 +46,84 @@ const InfoWrapper = styled(Grid)`
   text-align: left;
   padding: 5%;
 `
-const Banner = styled.div`
-  background-image: url('/banner-characters.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500px;
-  position: relative;
-  @media (max-width: 768px) {
-    height: 300px !important;
-  }
+const BannerChars = styled(Banner)`
+  background-image: url('/banner-3.jpg');
 `
-
+const PaginationWrapper = styled.div`
+  margin: 5% auto;
+  text-align: center;
+`
 export default function Characters() {
-  const { loading, error, data } = useQuery(CHARACTERS)
+  const useStyles = makeStyles(theme => ({
+    root: {
+      '& > *': {
+        marginTop: theme.spacing(2)
+      }
+    }
+  }))
+  const [page, setPage] = useState(1)
+  const { loading, error, data } = useQuery(CHARACTERS, {
+    variables: {
+      page
+    }
+  })
 
-  if (loading) return <Progress />
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
+
+  if (loading)
+    return (
+      <>
+        <BannerChars>
+          <Blur />
+          <Title variant="h2" gutterBottom>
+            Characters
+          </Title>
+        </BannerChars>
+        <Progress />
+      </>
+    )
   if (error) return <BadFetch />
 
   return (
     <>
-      <Banner>
+      <BannerChars>
         <Blur />
         <Title variant="h2" gutterBottom>
           Characters
         </Title>
-      </Banner>
+      </BannerChars>
 
       <Contain>
-        <Grid container spacing={4}>
-          {data.characters.results.map(character => (
-            <Grid
-              key={character.id}
-              item
-              xs={12}
-              md={6}
-              style={{ textAlign: 'center' }}
-            >
-              <Wrapper container>
-                <Grid item xs={4}>
-                  <CharacterImg src={character.image} alt="character" />
-                </Grid>
-                <InfoWrapper item xs={8}>
-                  <p>
-                    {character.id}: {character.name}
-                  </p>
-                </InfoWrapper>
-              </Wrapper>
-            </Grid>
-          ))}
-        </Grid>
+        <Grow in={true}>
+          <Grid container spacing={4}>
+            {data.characters.results.map(character => (
+              <Grid
+                key={character.id}
+                item
+                xs={12}
+                md={6}
+                style={{ textAlign: 'center' }}
+              >
+                <Wrapper container>
+                  <Grid item xs={4}>
+                    <CharacterImg src={character.image} alt="character" />
+                  </Grid>
+                  <InfoWrapper item xs={8}>
+                    <p>
+                      {character.id}: {character.name}
+                    </p>
+                  </InfoWrapper>
+                </Wrapper>
+              </Grid>
+            ))}
+          </Grid>
+        </Grow>
+        <PaginationWrapper>
+          <Typography>Page: {page}</Typography>
+          <Pagination count={10} page={page} onChange={handleChange} />
+        </PaginationWrapper>
       </Contain>
     </>
   )
