@@ -1,34 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded'
+import RoomRoundedIcon from '@material-ui/icons/RoomRounded'
+import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded'
+import styled from 'styled-components'
 
 const drawerWidth = 240
 
+const Logo = styled.img`
+  width: 200px;
+  height: 66px;
+`
+const LeftLogo = styled.img`
+  width: 150px;
+  height: 50px;
+`
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
   },
   appBar: {
+    height: '80px',
+    boxShadow: 'none',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     })
+  },
+  toolBar: {
+    height: '80px',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -44,11 +59,8 @@ const useStyles = makeStyles(theme => ({
   hide: {
     display: 'none'
   },
-
-  title: {
-    flexGrow: 1
-  },
   drawerPaper: {
+    background: theme.primary,
     width: drawerWidth
   },
   drawerHeader: {
@@ -79,8 +91,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles()
-  const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -94,12 +105,12 @@ export default function PersistentDrawerLeft() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="static"
+        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -109,10 +120,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            Rick and Morty
-          </Typography>
-          <img src="/favicon.png" alt="logo" />
+          <Logo src="/logo-banner.png" alt="logo-banner" draggable={false} />
         </Toolbar>
       </AppBar>
 
@@ -123,22 +131,26 @@ export default function PersistentDrawerLeft() {
         classes={{
           paper: classes.drawerPaper
         }}
+        style={{ background: 'transparent' }}
       >
         <div className={classes.drawerHeader}>
+          <LeftLogo src="/logo-banner.png" alt="logo-banner" />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Drafts'].map((text, index) => (
+          {['Characters', 'Locations', 'Episodes'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 ? (
+                  <AccountCircleRoundedIcon />
+                ) : index === 1 ? (
+                  <RoomRoundedIcon />
+                ) : (
+                  <LiveTvRoundedIcon />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

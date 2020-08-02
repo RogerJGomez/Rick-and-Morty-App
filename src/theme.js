@@ -1,15 +1,17 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import purple from '@material-ui/core/colors/purple'
-import green from '@material-ui/core/colors/green'
 
 const theme = createMuiTheme({
   palette: {
+    type: 'dark',
     primary: {
-      main: purple[500]
+      main: '#424242'
     },
     secondary: {
-      main: green[500]
+      main: '#fff'
     }
+  },
+  typography: {
+    fontFamily: 'Fredoka One, cursive'
   }
 })
 
