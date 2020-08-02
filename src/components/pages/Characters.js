@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Pagination from '@material-ui/lab/Pagination'
 import { useQuery, gql } from '@apollo/client'
 import BadFetch from '../utils/BadFetch'
@@ -20,10 +19,13 @@ const CHARACTERS = gql`
         id
         name
         status
-        species
-        type
-        gender
         image
+        location {
+          name
+        }
+        episode {
+          name
+        }
       }
     }
   }
@@ -49,18 +51,7 @@ const InfoWrapper = styled(Grid)`
 const BannerChars = styled(Banner)`
   background-image: url('/banner-3.jpg');
 `
-const PaginationWrapper = styled.div`
-  margin: 5% auto;
-  text-align: center;
-`
 export default function Characters() {
-  const useStyles = makeStyles(theme => ({
-    root: {
-      '& > *': {
-        marginTop: theme.spacing(2)
-      }
-    }
-  }))
   const [page, setPage] = useState(1)
   const { loading, error, data } = useQuery(CHARACTERS, {
     variables: {
@@ -86,6 +77,8 @@ export default function Characters() {
     )
   if (error) return <BadFetch />
 
+  const charactersData = data.characters.results
+
   return (
     <>
       <BannerChars>
@@ -98,7 +91,7 @@ export default function Characters() {
       <Contain>
         <Grow in={true}>
           <Grid container spacing={4}>
-            {data.characters.results.map(character => (
+            {charactersData.map(character => (
               <Grid
                 key={character.id}
                 item
@@ -111,19 +104,24 @@ export default function Characters() {
                     <CharacterImg src={character.image} alt="character" />
                   </Grid>
                   <InfoWrapper item xs={8}>
-                    <p>
-                      {character.id}: {character.name}
-                    </p>
+                    <Typography variant="h5">{character.name}</Typography>
+                    <br />
+                    <Typography variant="body1">
+                      Status: {character.status}
+                    </Typography>
+                    <Typography variant="body1">
+                      First seen in: {character.episode[0].name}
+                    </Typography>
+                    <Typography variant="body1">
+                      Last known location: {character.location.name}
+                    </Typography>
                   </InfoWrapper>
                 </Wrapper>
               </Grid>
             ))}
           </Grid>
         </Grow>
-        <PaginationWrapper>
-          <Typography>Page: {page}</Typography>
-          <Pagination count={10} page={page} onChange={handleChange} />
-        </PaginationWrapper>
+        <Pagination count={10} page={page} onChange={handleChange} />
       </Contain>
     </>
   )

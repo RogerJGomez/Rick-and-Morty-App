@@ -37,7 +37,7 @@ const InfoWrapper = styled(Grid)`
   padding: 5%;
 `
 const BannerChars = styled(Banner)`
-  background-image: url('/banner-locations.jpg');
+  background-image: url('/banner-episodes.jpg');
 `
 
 export default function Characters() {
