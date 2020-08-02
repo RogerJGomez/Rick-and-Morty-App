@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import Contain from '../styles/Contain'
 import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
+import Blur from '../styles/Blur'
+import Title from '../styles/Title'
 
 const CHARACTERS = gql`
   query GetCharacters {
@@ -50,19 +52,7 @@ const Banner = styled.div`
     height: 300px !important;
   }
 `
-const Blur = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0.4;
-`
-const Title = styled(Typography)`
-  text-align: center;
-  position: relative;
-`
+
 export default function Characters() {
   const { loading, error, data } = useQuery(CHARACTERS)
 

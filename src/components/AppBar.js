@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link as RouterLink } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -15,7 +16,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded'
 import RoomRoundedIcon from '@material-ui/icons/RoomRounded'
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded'
 import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import styled from 'styled-components'
 
 const drawerWidth = 240
@@ -32,9 +35,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
   },
+  appBarScroll: {
+    backgroundColor: theme.palette.primary
+  },
   appBar: {
     height: '80px',
     boxShadow: 'none',
+    backgroundColor: 'transparent',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -60,7 +67,7 @@ const useStyles = makeStyles(theme => ({
     display: 'none'
   },
   drawerPaper: {
-    background: theme.primary,
+    backgroundColor: '#20232996',
     width: drawerWidth
   },
   drawerHeader: {
@@ -92,6 +99,10 @@ const useStyles = makeStyles(theme => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 29
+  })
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -106,7 +117,7 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={clsx(trigger ? classes.appBarScroll : classes.appBar, {
           [classes.appBarShift]: open
         })}
       >
@@ -120,7 +131,12 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Logo src="/logo-banner.png" alt="logo-banner" draggable={false} />
+          <Logo
+            className={clsx(open && classes.hide)}
+            src="/logo-banner.png"
+            alt="logo-banner"
+            draggable={false}
+          />
         </Toolbar>
       </AppBar>
 
@@ -141,20 +157,29 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Characters', 'Locations', 'Episodes'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index === 0 ? (
-                  <AccountCircleRoundedIcon />
-                ) : index === 1 ? (
-                  <RoomRoundedIcon />
-                ) : (
-                  <LiveTvRoundedIcon />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {['Home', 'Characters', 'Locations', 'Episodes'].map(
+            (text, index) => (
+              <ListItem
+                component={RouterLink}
+                to={`/${text.toLowerCase()}`}
+                button
+                key={text}
+              >
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <HomeRoundedIcon />
+                  ) : index === 1 ? (
+                    <AccountCircleRoundedIcon />
+                  ) : index === 2 ? (
+                    <RoomRoundedIcon />
+                  ) : (
+                    <LiveTvRoundedIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
         </List>
         <Divider />
       </Drawer>

@@ -1,10 +1,12 @@
 import React from 'react'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { createGlobalStyle } from 'styled-components'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import theme from './theme'
 import Layout from './components/Layout'
 import Home from './components/pages/Home'
-import { ThemeProvider } from '@material-ui/core/styles'
-import theme from './theme'
-import { createGlobalStyle } from 'styled-components'
+import Characters from './components/pages/Characters'
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -26,22 +28,24 @@ const GlobalStyles = createGlobalStyle`
       scroll-behavior: smooth;
   }
 
-  .MuiPaper-root {
-    background-color:transparent !important;
-  }
-
 `
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Layout>
-          <Home />
-        </Layout>
-      </ThemeProvider>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Layout />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/characters" component={Characters} />
+            <Route path="/locations" component={Characters} />
+            <Route path="/episodes" component={Characters} />
+          </Switch>
+        </ThemeProvider>
+      </ApolloProvider>
+    </Router>
   )
 }
 
