@@ -18,7 +18,9 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded'
 import RoomRoundedIcon from '@material-ui/icons/RoomRounded'
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded'
 import LiveTvRoundedIcon from '@material-ui/icons/LiveTvRounded'
+import GitHubIcon from '@material-ui/icons/GitHub'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import Link from '@material-ui/core/Link'
 import styled from 'styled-components'
 
 const drawerWidth = 240
@@ -99,7 +101,11 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 0
   }
 }))
-
+const LinkTo = styled(Link)`
+  &:hover {
+    text-decoration: none !important;
+  }
+`
 export default function PersistentDrawerLeft() {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
@@ -190,6 +196,19 @@ export default function PersistentDrawerLeft() {
           )}
         </List>
         <Divider />
+        <List>
+          <LinkTo
+            href="https://github.com/RogerJGomez/Rick-and-Morty-App"
+            color="inherit"
+          >
+            <ListItem button>
+              <ListItemIcon>
+                <GitHubIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Github page'} />
+            </ListItem>
+          </LinkTo>
+        </List>
       </Drawer>
     </div>
   )
