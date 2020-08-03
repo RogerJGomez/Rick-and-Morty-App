@@ -26,7 +26,7 @@ export default function Characters() {
       <Banner title="Rick and Morty" url="/banner-home.jpg" />
       <Contain>
         <Grow in={true}>
-          <Grid container spacing={4}>
+          <Grid container spacing={8}>
             <Grid item xs={12} sm={4}>
               <Links to="/characters">
                 <Wrapper>

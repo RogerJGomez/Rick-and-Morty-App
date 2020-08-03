@@ -10,5 +10,11 @@ const Wrapper = styled(Grid)`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   overflow: hidden;
+  transition: 0.3s;
+  &:hover {
+    -webkit-box-shadow: 0px -1px 48px -3px rgba(20, 179, 89, 1);
+    -moz-box-shadow: 0px -1px 48px -3px rgba(20, 179, 89, 1);
+    box-shadow: 0px -1px 48px -3px rgba(20, 179, 89, 1);
+  }
 `
 export default Wrapper
