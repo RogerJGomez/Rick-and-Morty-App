@@ -10,7 +10,9 @@ import styled from 'styled-components'
 import Blur from '../styles/Blur'
 import Title from '../styles/Title'
 import Banner from '../styles/Banner'
+import BannerWrapper from '../styles/BannerWrapper'
 import Grow from '@material-ui/core/Grow'
+import Wrapper from '../styles/Wrapper'
 import PagWrapper from '../styles/PagWrapper'
 
 const CHARACTERS = gql`
@@ -35,16 +37,7 @@ const CharacterImg = styled.img`
   height: 100%;
   width: 100%;
 `
-const Wrapper = styled(Grid)`
-  border-radius: 15px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  background-color: rgb(60, 62, 68);
-  min-height: 150px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  overflow: hidden;
-`
+
 const InfoWrapper = styled(Grid)`
   text-align: left;
   padding: 3%;
@@ -68,12 +61,14 @@ export default function Characters() {
   if (loading)
     return (
       <>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Characters
-          </Title>
-        </BannerChars>
+        <BannerWrapper>
+          <BannerChars>
+            <Blur />
+            <Title variant="h2" gutterBottom>
+              Characters
+            </Title>
+          </BannerChars>
+        </BannerWrapper>
         <Progress />
       </>
     )
@@ -83,13 +78,14 @@ export default function Characters() {
 
   return (
     <>
-      <BannerChars>
-        <Blur />
-        <Title variant="h2" gutterBottom>
-          Characters
-        </Title>
-      </BannerChars>
-
+      <BannerWrapper>
+        <BannerChars>
+          <Blur />
+          <Title variant="h2" gutterBottom>
+            Characters
+          </Title>
+        </BannerChars>
+      </BannerWrapper>
       <Contain>
         <PagWrapper>
           <Pagination

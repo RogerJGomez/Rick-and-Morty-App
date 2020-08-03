@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     background:rgb(32, 35, 41) !important;
     font-family: 'Fredoka One', cursive !important;
+    overflow-x: hidden;
   }
 
   html {

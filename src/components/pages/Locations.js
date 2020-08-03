@@ -10,6 +10,8 @@ import styled from 'styled-components'
 import Blur from '../styles/Blur'
 import Title from '../styles/Title'
 import Banner from '../styles/Banner'
+import Wrapper from '../styles/Wrapper'
+import BannerWrapper from '../styles/BannerWrapper'
 import PagWrapper from '../styles/PagWrapper'
 import Grow from '@material-ui/core/Grow'
 
@@ -24,16 +26,6 @@ const LOCATIONS = gql`
       }
     }
   }
-`
-const Wrapper = styled(Grid)`
-  border-radius: 15px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  background-color: rgb(60, 62, 68);
-  min-height: 150px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  overflow: hidden;
 `
 const InfoWrapper = styled(Grid)`
   text-align: left;
@@ -58,12 +50,14 @@ export default function Locations() {
   if (loading)
     return (
       <>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Locations
-          </Title>
-        </BannerChars>
+        <BannerWrapper>
+          <BannerChars>
+            <Blur />
+            <Title variant="h2" gutterBottom>
+              Locations
+            </Title>
+          </BannerChars>
+        </BannerWrapper>
         <Progress />
       </>
     )
@@ -73,13 +67,14 @@ export default function Locations() {
 
   return (
     <>
-      <BannerChars>
-        <Blur />
-        <Title variant="h2" gutterBottom>
-          Locations
-        </Title>
-      </BannerChars>
-
+      <BannerWrapper>
+        <BannerChars>
+          <Blur />
+          <Title variant="h2" gutterBottom>
+            Locations
+          </Title>
+        </BannerChars>
+      </BannerWrapper>
       <Contain>
         <PagWrapper>
           <Pagination

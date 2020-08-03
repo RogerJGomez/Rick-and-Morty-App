@@ -26,6 +26,10 @@ const drawerWidth = 240
 const Logo = styled.img`
   width: 200px;
   height: 66px;
+  @media (max-width: 768px) {
+    height: 50px !important;
+    width: 150px !important;
+  }
 `
 const LeftLogo = styled.img`
   width: 150px;
@@ -67,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     display: 'none'
   },
   drawerPaper: {
-    backgroundColor: '#20232996',
+    backgroundColor: '#202329d1',
     width: drawerWidth
   },
   drawerHeader: {

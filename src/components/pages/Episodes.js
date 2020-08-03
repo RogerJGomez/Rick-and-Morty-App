@@ -10,7 +10,10 @@ import styled from 'styled-components'
 import Blur from '../styles/Blur'
 import Title from '../styles/Title'
 import Banner from '../styles/Banner'
+import Wrapper from '../styles/Wrapper'
+import BannerWrapper from '../styles/BannerWrapper'
 import PagWrapper from '../styles/PagWrapper'
+import Grow from '@material-ui/core/Grow'
 
 const EPISODES = gql`
   query GetEpisodes($page: Int) {
@@ -23,16 +26,6 @@ const EPISODES = gql`
       }
     }
   }
-`
-const Wrapper = styled(Grid)`
-  border-radius: 15px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  background-color: rgb(60, 62, 68);
-  min-height: 150px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  overflow: hidden;
 `
 const InfoWrapper = styled(Grid)`
   text-align: left;
@@ -57,12 +50,14 @@ export default function Episodes() {
   if (loading)
     return (
       <>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Episodes
-          </Title>
-        </BannerChars>
+        <BannerWrapper>
+          <BannerChars>
+            <Blur />
+            <Title variant="h2" gutterBottom>
+              Episodes
+            </Title>
+          </BannerChars>
+        </BannerWrapper>
         <Progress />
       </>
     )
@@ -72,13 +67,14 @@ export default function Episodes() {
 
   return (
     <>
-      <BannerChars>
-        <Blur />
-        <Title variant="h2" gutterBottom>
-          Episodes
-        </Title>
-      </BannerChars>
-
+      <BannerWrapper>
+        <BannerChars>
+          <Blur />
+          <Title variant="h2" gutterBottom>
+            Episodes
+          </Title>
+        </BannerChars>
+      </BannerWrapper>
       <Contain>
         <PagWrapper>
           <Pagination
@@ -88,24 +84,26 @@ export default function Episodes() {
             onChange={handleChange}
           />
         </PagWrapper>
-        <Grid container spacing={4}>
-          {episodesData.map(episode => (
-            <Grid key={episode.id} item xs={12} md={6}>
-              <Wrapper container>
-                <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
-                  <Typography variant="h5">{episode.name}</Typography>
-                  <br />
-                  <Typography variant="body1">
-                    Episode: {episode.episode}
-                  </Typography>
-                  <Typography variant="body1">
-                    Air date: {episode.air_date}
-                  </Typography>
-                </InfoWrapper>
-              </Wrapper>
-            </Grid>
-          ))}
-        </Grid>
+        <Grow in={true}>
+          <Grid container spacing={4}>
+            {episodesData.map(episode => (
+              <Grid key={episode.id} item xs={12} md={6}>
+                <Wrapper container>
+                  <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
+                    <Typography variant="h5">{episode.name}</Typography>
+                    <br />
+                    <Typography variant="body1">
+                      Episode: {episode.episode}
+                    </Typography>
+                    <Typography variant="body1">
+                      Air date: {episode.air_date}
+                    </Typography>
+                  </InfoWrapper>
+                </Wrapper>
+              </Grid>
+            ))}
+          </Grid>
+        </Grow>
         <PagWrapper>
           <Pagination
             style={{ justifyContent: 'center' }}
