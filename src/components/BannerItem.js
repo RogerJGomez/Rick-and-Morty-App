@@ -10,9 +10,7 @@ const BannerItem = ({ url, title }) => {
       <BannerWrapper>
         <Banner path={url}>
           <Blur />
-          <Title variant="h2" gutterBottom>
-            {title}
-          </Title>
+          <Title variant="h1">{title}</Title>
         </Banner>
       </BannerWrapper>
     </>

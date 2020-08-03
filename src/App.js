@@ -16,7 +16,14 @@ const client = new ApolloClient({
 })
 
 const GlobalStyles = createGlobalStyle`
-  
+
+@font-face {
+    font-family: 'Get Schwifty';
+    src: url('/fonts/schwifty.ttf') format('ttf'),
+    url('/fonts/schwifty.ttf')  format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   :root {
       font-size: 16px;
   }

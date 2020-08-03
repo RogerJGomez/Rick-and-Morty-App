@@ -11,7 +11,10 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: 'Fredoka One, cursive'
+    fontFamily: ['Fredoka One, cursive', 'Get Schwifty'],
+    h1: {
+      fontFamily: 'Get Schwifty'
+    }
   }
 })
 
