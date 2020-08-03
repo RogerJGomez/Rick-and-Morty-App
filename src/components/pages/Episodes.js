@@ -5,13 +5,10 @@ import BadFetch from '../utils/BadFetch'
 import Progress from '../utils/Progress'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Wrapper from '../styles/Wrapper'
+import Banner from '../BannerItem'
 import Contain from '../styles/Contain'
 import styled from 'styled-components'
-import Blur from '../styles/Blur'
-import Title from '../styles/Title'
-import Banner from '../styles/Banner'
-import Wrapper from '../styles/Wrapper'
-import BannerWrapper from '../styles/BannerWrapper'
 import PagWrapper from '../styles/PagWrapper'
 import Grow from '@material-ui/core/Grow'
 
@@ -31,10 +28,6 @@ const InfoWrapper = styled(Grid)`
   text-align: left;
   padding: 5%;
 `
-const BannerChars = styled(Banner)`
-  background-image: url('/banner-episodes.jpg');
-`
-
 export default function Episodes() {
   const [page, setPage] = useState(1)
   const { loading, error, data } = useQuery(EPISODES, {
@@ -50,31 +43,23 @@ export default function Episodes() {
   if (loading)
     return (
       <>
-        <BannerWrapper>
-          <BannerChars>
-            <Blur />
-            <Title variant="h2" gutterBottom>
-              Episodes
-            </Title>
-          </BannerChars>
-        </BannerWrapper>
+        <Banner title="Episodes" url="/banner-episodes.jpg" />
         <Progress />
       </>
     )
-  if (error) return <BadFetch />
+  if (error)
+    return (
+      <>
+        <Banner title="Episodes" url="/banner-episodes.jpg" />
+        <BadFetch />
+      </>
+    )
 
   const episodesData = data.episodes.results
 
   return (
     <>
-      <BannerWrapper>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Episodes
-          </Title>
-        </BannerChars>
-      </BannerWrapper>
+      <Banner title="Episodes" url="/banner-episodes.jpg" />
       <Contain>
         <PagWrapper>
           <Pagination

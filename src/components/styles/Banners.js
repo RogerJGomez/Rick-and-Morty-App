@@ -11,7 +11,7 @@ const animate = keyframes`
     transform: scale(1.3);
   }
   `
-const Banner = styled.div`
+const Banners = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -29,4 +29,4 @@ const Banner = styled.div`
   right: 0;
   z-index: 0;
 `
-export default Banner
+export default Banners

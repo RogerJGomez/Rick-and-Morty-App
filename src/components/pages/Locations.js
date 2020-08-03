@@ -7,11 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Contain from '../styles/Contain'
 import styled from 'styled-components'
-import Blur from '../styles/Blur'
-import Title from '../styles/Title'
-import Banner from '../styles/Banner'
 import Wrapper from '../styles/Wrapper'
-import BannerWrapper from '../styles/BannerWrapper'
+import Banner from '../BannerItem'
 import PagWrapper from '../styles/PagWrapper'
 import Grow from '@material-ui/core/Grow'
 
@@ -31,9 +28,6 @@ const InfoWrapper = styled(Grid)`
   text-align: left;
   padding: 5%;
 `
-const BannerChars = styled(Banner)`
-  background-image: url('/banner-locations.jpg');
-`
 
 export default function Locations() {
   const [page, setPage] = useState(1)
@@ -50,31 +44,23 @@ export default function Locations() {
   if (loading)
     return (
       <>
-        <BannerWrapper>
-          <BannerChars>
-            <Blur />
-            <Title variant="h2" gutterBottom>
-              Locations
-            </Title>
-          </BannerChars>
-        </BannerWrapper>
+        <Banner title="Locations" url="/banner-locations.jpg" />
         <Progress />
       </>
     )
-  if (error) return <BadFetch />
+  if (error)
+    return (
+      <>
+        <Banner title="Locations" url="/banner-locations.jpg" />
+        <BadFetch />
+      </>
+    )
 
   const locationsData = data.locations.results
 
   return (
     <>
-      <BannerWrapper>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Locations
-          </Title>
-        </BannerChars>
-      </BannerWrapper>
+      <Banner title="Locations" url="/banner-locations.jpg" />
       <Contain>
         <PagWrapper>
           <Pagination

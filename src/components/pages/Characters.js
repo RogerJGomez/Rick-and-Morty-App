@@ -7,13 +7,10 @@ import Grid from '@material-ui/core/Grid'
 import Contain from '../styles/Contain'
 import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
-import Blur from '../styles/Blur'
-import Title from '../styles/Title'
-import Banner from '../styles/Banner'
-import BannerWrapper from '../styles/BannerWrapper'
 import Grow from '@material-ui/core/Grow'
 import Wrapper from '../styles/Wrapper'
 import PagWrapper from '../styles/PagWrapper'
+import Banner from '../BannerItem'
 
 const CHARACTERS = gql`
   query GetCharacters($page: Int) {
@@ -37,15 +34,10 @@ const CharacterImg = styled.img`
   height: 100%;
   width: 100%;
 `
-
 const InfoWrapper = styled(Grid)`
   text-align: left;
   padding: 3%;
 `
-const BannerChars = styled(Banner)`
-  background-image: url('/banner-characters.jpg');
-`
-
 export default function Characters() {
   const [page, setPage] = useState(1)
   const { loading, error, data } = useQuery(CHARACTERS, {
@@ -61,31 +53,23 @@ export default function Characters() {
   if (loading)
     return (
       <>
-        <BannerWrapper>
-          <BannerChars>
-            <Blur />
-            <Title variant="h2" gutterBottom>
-              Characters
-            </Title>
-          </BannerChars>
-        </BannerWrapper>
+        <Banner title="Characters" url="/banner-characters.jpg" />
         <Progress />
       </>
     )
-  if (error) return <BadFetch />
+  if (error)
+    return (
+      <>
+        <Banner title="Characters" url="/banner-characters.jpg" />
+        <BadFetch />
+      </>
+    )
 
   const charactersData = data.characters.results
 
   return (
     <>
-      <BannerWrapper>
-        <BannerChars>
-          <Blur />
-          <Title variant="h2" gutterBottom>
-            Characters
-          </Title>
-        </BannerChars>
-      </BannerWrapper>
+      <Banner title="Characters" url="/banner-characters.jpg" />
       <Contain>
         <PagWrapper>
           <Pagination
