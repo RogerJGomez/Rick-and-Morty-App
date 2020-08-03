@@ -12,6 +12,7 @@ const animate = keyframes`
   }
   `
 const Banners = styled.div`
+  background-image: url(${props => props.path});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

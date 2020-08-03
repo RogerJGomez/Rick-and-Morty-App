@@ -135,12 +135,14 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Logo
-            className={clsx(open && classes.hide)}
-            src="/logo-banner.png"
-            alt="logo-banner"
-            draggable={false}
-          />
+          <RouterLink to="/">
+            <Logo
+              className={clsx(open && classes.hide)}
+              src="/logo-banner.png"
+              alt="logo-banner"
+              draggable={false}
+            />
+          </RouterLink>
         </Toolbar>
       </AppBar>
 
