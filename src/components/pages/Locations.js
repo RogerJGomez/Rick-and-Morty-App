@@ -65,7 +65,7 @@ export default function Locations() {
         <PagWrapper>
           <Pagination
             style={{ justifyContent: 'center' }}
-            count={10}
+            count={6}
             page={page}
             onChange={handleChange}
           />
@@ -93,7 +93,7 @@ export default function Locations() {
         <PagWrapper>
           <Pagination
             style={{ justifyContent: 'center' }}
-            count={10}
+            count={6}
             page={page}
             onChange={handleChange}
           />

@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   appBarScroll: {
-    backgroundColor: theme.palette.primary
+    backgroundColor: '#202329d1'
   },
   appBar: {
     height: '80px',
