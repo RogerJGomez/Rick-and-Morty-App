@@ -120,7 +120,6 @@ export default function PersistentDrawerLeft() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        style={{ transition: '0.3s' }}
         position="fixed"
         className={clsx(trigger ? classes.appBarScroll : classes.appBar, {
           [classes.appBarShift]: open
