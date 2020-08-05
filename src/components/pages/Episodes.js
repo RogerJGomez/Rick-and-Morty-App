@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import Pagination from '@material-ui/lab/Pagination'
 import { useQuery, gql } from '@apollo/client'
+import Grid from '@material-ui/core/Grid'
 import BadFetch from '../utils/BadFetch'
 import Progress from '../utils/Progress'
 import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
 import Wrapper from '../styles/Wrapper'
+import InfoWrapper from '../styles/InfoWrapper'
 import Banner from '../BannerItem'
 import Contain from '../styles/Contain'
-import styled from 'styled-components'
-import PagWrapper from '../styles/PagWrapper'
 import Grow from '@material-ui/core/Grow'
+import Pagination from '../PaginationItem'
 
 const EPISODES = gql`
   query GetEpisodes($page: Int) {
@@ -23,10 +22,6 @@ const EPISODES = gql`
       }
     }
   }
-`
-const InfoWrapper = styled(Grid)`
-  text-align: left;
-  padding: 5%;
 `
 export default function Episodes() {
   const [page, setPage] = useState(1)
@@ -61,20 +56,13 @@ export default function Episodes() {
     <>
       <Banner title="Episodes" url="/banner-episodes.jpg" />
       <Contain>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={2}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={2} setPage={handleChange} />
         <Grow in={true}>
           <Grid container spacing={4}>
             {episodesData.map(episode => (
               <Grid key={episode.id} item xs={12} md={6}>
                 <Wrapper container>
-                  <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
+                  <InfoWrapper padding={'5%'} text={'center'} item xs={12}>
                     <Typography variant="h5">{episode.name}</Typography>
                     <br />
                     <Typography variant="body1">
@@ -89,14 +77,7 @@ export default function Episodes() {
             ))}
           </Grid>
         </Grow>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={2}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={2} setPage={handleChange} />
       </Contain>
     </>
   )

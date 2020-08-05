@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import Pagination from '@material-ui/lab/Pagination'
 import { useQuery, gql } from '@apollo/client'
 import BadFetch from '../utils/BadFetch'
 import Progress from '../utils/Progress'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Contain from '../styles/Contain'
-import styled from 'styled-components'
 import Wrapper from '../styles/Wrapper'
+import InfoWrapper from '../styles/InfoWrapper'
 import Banner from '../BannerItem'
-import PagWrapper from '../styles/PagWrapper'
 import Grow from '@material-ui/core/Grow'
+import Pagination from '../PaginationItem'
 
 const LOCATIONS = gql`
   query GetLocations($page: Int) {
@@ -23,10 +22,6 @@ const LOCATIONS = gql`
       }
     }
   }
-`
-const InfoWrapper = styled(Grid)`
-  text-align: left;
-  padding: 5%;
 `
 
 export default function Locations() {
@@ -62,20 +57,13 @@ export default function Locations() {
     <>
       <Banner title="Locations" url="/banner-locations.jpg" />
       <Contain>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={6}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={5} setPage={handleChange} />
         <Grow in={true}>
           <Grid container spacing={4}>
             {locationsData.map(location => (
               <Grid key={location.id} item xs={12} md={6}>
                 <Wrapper container>
-                  <InfoWrapper item xs={12} style={{ textAlign: 'center' }}>
+                  <InfoWrapper padding={'5%'} text={'center'} item xs={12}>
                     <Typography variant="h5">{location.name}</Typography>
                     <br />
                     <Typography variant="body1">
@@ -90,14 +78,7 @@ export default function Locations() {
             ))}
           </Grid>
         </Grow>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={6}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={5} setPage={handleChange} />
       </Contain>
     </>
   )

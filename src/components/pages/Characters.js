@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Pagination from '@material-ui/lab/Pagination'
 import { useQuery, gql } from '@apollo/client'
 import BadFetch from '../utils/BadFetch'
 import Progress from '../utils/Progress'
@@ -8,9 +7,10 @@ import Contain from '../styles/Contain'
 import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
 import Grow from '@material-ui/core/Grow'
+import InfoWrapper from '../styles/InfoWrapper'
 import Wrapper from '../styles/Wrapper'
-import PagWrapper from '../styles/PagWrapper'
 import Banner from '../BannerItem'
+import Pagination from '../PaginationItem'
 
 const CHARACTERS = gql`
   query GetCharacters($page: Int) {
@@ -33,10 +33,6 @@ const CHARACTERS = gql`
 const CharacterImg = styled.img`
   height: 100%;
   width: 100%;
-`
-const InfoWrapper = styled(Grid)`
-  text-align: left;
-  padding: 3%;
 `
 export default function Characters() {
   const [page, setPage] = useState(1)
@@ -71,29 +67,16 @@ export default function Characters() {
     <>
       <Banner title="Characters" url="/banner-characters.jpg" />
       <Contain>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={30}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={30} setPage={handleChange} />
         <Grow in={true}>
           <Grid container spacing={4}>
             {charactersData.map(character => (
-              <Grid
-                key={character.id}
-                item
-                xs={12}
-                md={6}
-                style={{ textAlign: 'center' }}
-              >
+              <Grid key={character.id} item xs={12} md={6}>
                 <Wrapper container>
                   <Grid item xs={4}>
                     <CharacterImg src={character.image} alt="character" />
                   </Grid>
-                  <InfoWrapper item xs={8}>
+                  <InfoWrapper padding={'2%'} text={'left'} item xs={8}>
                     <Typography variant="h5">{character.name}</Typography>
                     <br />
                     <Typography variant="body1">
@@ -111,14 +94,7 @@ export default function Characters() {
             ))}
           </Grid>
         </Grow>
-        <PagWrapper>
-          <Pagination
-            style={{ justifyContent: 'center' }}
-            count={30}
-            page={page}
-            onChange={handleChange}
-          />
-        </PagWrapper>
+        <Pagination page={page} count={30} setPage={handleChange} />
       </Contain>
     </>
   )
