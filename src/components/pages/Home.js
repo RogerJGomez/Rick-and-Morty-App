@@ -23,6 +23,38 @@ const Subtitles = styled(Typography)`
 const OptionsWrapper = styled(Wrapper)`
   height: 70vh;
 `
+
+const optionsData = [
+  {
+    image: '/option-1.jpg',
+    title: 'Characters',
+    path: '/characters'
+  },
+  {
+    image: '/option-2.jpg',
+    title: 'Locations',
+    path: '/locations'
+  },
+  {
+    image: '/option-3.jpg',
+    title: 'Episodes',
+    path: '/episodes'
+  }
+]
+
+const OptionItem = ({ image, title, path }) => {
+  return (
+    <Grid item xs={12} sm={4}>
+      <Links to={path}>
+        <OptionsWrapper>
+          <OptionImg src={image} alt="option" />
+          <Subtitles variant="h4">{title}</Subtitles>
+        </OptionsWrapper>
+      </Links>
+    </Grid>
+  )
+}
+
 export default function Characters() {
   return (
     <>
@@ -30,30 +62,13 @@ export default function Characters() {
       <Contain>
         <Grow in={true}>
           <Grid container spacing={4}>
-            <Grid item xs={12} sm={4}>
-              <Links to="/characters">
-                <OptionsWrapper>
-                  <OptionImg src="/option-1.jpg" alt="option" />
-                  <Subtitles variant="h4">Characters</Subtitles>
-                </OptionsWrapper>
-              </Links>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Links to="/locations">
-                <OptionsWrapper>
-                  <OptionImg src="/option-2.jpg" alt="option" />
-                  <Subtitles variant="h4">Locations</Subtitles>
-                </OptionsWrapper>
-              </Links>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Links to="/episodes">
-                <OptionsWrapper>
-                  <OptionImg src="/option-3.jpg" alt="option" />
-                  <Subtitles variant="h4">Episodes</Subtitles>
-                </OptionsWrapper>
-              </Links>
-            </Grid>
+            {optionsData.map(option => (
+              <OptionItem
+                image={option.image}
+                title={option.title}
+                path={option.path}
+              />
+            ))}
           </Grid>
         </Grow>
       </Contain>
