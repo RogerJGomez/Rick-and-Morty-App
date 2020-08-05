@@ -10,6 +10,7 @@ import styled from 'styled-components'
 
 const OptionImg = styled.img`
   width: 100%;
+  height: 60vh;
 `
 const Links = styled(RouterLink)`
   text-decoration: none;
@@ -17,9 +18,11 @@ const Links = styled(RouterLink)`
   text-align: center;
 `
 const Subtitles = styled(Typography)`
-  padding: 5% 0;
+  padding: 3% 0;
 `
-
+const OptionsWrapper = styled(Wrapper)`
+  height: 70vh;
+`
 export default function Characters() {
   return (
     <>
@@ -29,26 +32,26 @@ export default function Characters() {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={4}>
               <Links to="/characters">
-                <Wrapper>
+                <OptionsWrapper>
                   <OptionImg src="/option-1.jpg" alt="option" />
                   <Subtitles variant="h4">Characters</Subtitles>
-                </Wrapper>
+                </OptionsWrapper>
               </Links>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Links to="/locations">
-                <Wrapper>
+                <OptionsWrapper>
                   <OptionImg src="/option-2.jpg" alt="option" />
                   <Subtitles variant="h4">Locations</Subtitles>
-                </Wrapper>
+                </OptionsWrapper>
               </Links>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Links to="/episodes">
-                <Wrapper>
+                <OptionsWrapper>
                   <OptionImg src="/option-3.jpg" alt="option" />
                   <Subtitles variant="h4">Episodes</Subtitles>
-                </Wrapper>
+                </OptionsWrapper>
               </Links>
             </Grid>
           </Grid>
