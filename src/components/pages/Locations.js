@@ -41,6 +41,9 @@ export default function Locations() {
       <>
         <Banner title="Locations" url="/banner-locations.jpg" />
         <Progress />
+        <Contain>
+          <Pagination page={page} count={5} setPage={handleChange} />
+        </Contain>
       </>
     )
   if (error)

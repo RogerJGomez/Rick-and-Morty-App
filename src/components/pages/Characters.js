@@ -51,6 +51,9 @@ export default function Characters() {
       <>
         <Banner title="Characters" url="/banner-characters.jpg" />
         <Progress />
+        <Contain>
+          <Pagination page={page} count={30} setPage={handleChange} />
+        </Contain>
       </>
     )
   if (error)

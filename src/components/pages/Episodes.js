@@ -40,6 +40,9 @@ export default function Episodes() {
       <>
         <Banner title="Episodes" url="/banner-episodes.jpg" />
         <Progress />
+        <Contain>
+          <Pagination page={page} count={2} setPage={handleChange} />
+        </Contain>
       </>
     )
   if (error)
